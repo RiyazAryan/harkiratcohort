@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Interest Calculator</title>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .container {
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    /* Optional styling for inputs */
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    /* Optional styling for button */
+    button {
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        border: none;
+        border-radius: 4px;
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+</head>
+<script>
+    function deb(){
+        var timeout
+        clearTimeout(timeout)
+        timeout=setTimeout(()=>{
+            functionsum()
+        },1000)
+    }
+    function functionsum() {
+        var p = parseInt(document.getElementById("input1").value)
+        var r = parseInt(document.getElementById("input2").value)
+        var i = parseInt(document.getElementById("input3").value)
+        fetch("http://localhost:3003/intrest?p=" + p + "&r=" + r + "&i=" + i)
+            .then(function (result) {
+                result.json().then(function (respo) {
+                    document.getElementById("textset").innerHTML = "Intrest: "+respo.Intrest;
+                    document.getElementById("textset2").innerHTML = "Total: " +respo.Total;
+                });
+            })
+            .catch(function (error) {
+                console.error('Fetch Error:', error);
+            });
+        //var c = a + b
+        //document.getElementById("textset").innerHTML = c
+
+    }
+</script>
+<body>
+    <div class="container">
+        <input oninput=deb() id="input1" type="text" placeholder="Principal"><br>
+        <input oninput=deb() id="input2" type="text" placeholder="Rate in percentage"><br>
+        <input oninput=deb() id="input3" type="text" placeholder="Time in years"><br>
+        <p id="textset">Intrest:</p>
+        <p id="textset2">Total:</p>
+    </div>
+</body>
+
+</html>

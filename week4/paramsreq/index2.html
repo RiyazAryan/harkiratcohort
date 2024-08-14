@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function functionsum() {
+        var a = parseInt(document.getElementById("input1").value)
+        var b = parseInt(document.getElementById("input2").value)
+        fetch("http://localhost:3003/sum?a=" + a + "&b=" + b)
+            .then(function (result) {
+                result.text().then(function (respo) {
+                    document.getElementById("textset").innerHTML = respo;
+                });
+            })
+            .catch(function (error) {
+                console.error('Fetch Error:', error);
+            });
+        //var c = a + b
+        //document.getElementById("textset").innerHTML = c
+
+    }
+</script>
+<body>
+    <input id="input1" type="text" placeholder="First number"><br><br>
+    <input id="input2" type="text" placeholder="second number"><br><br>
+    <button onclick=functionsum()>Calculate sum</button><br>
+    <h1 id="textset"></h1>
+</body>
+</html>
